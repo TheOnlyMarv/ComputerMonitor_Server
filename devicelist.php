@@ -11,7 +11,7 @@
 		echo json_encode($returnvalue);
 	}
 	else{
-		$devices = DB::query( 'SELECT d.id, d.name FROM device AS d JOIN user AS u ON d.user_id=u.id WHERE u.token=?', $token );
+		$devices = DB::query( 'SELECT d.id, d.name, d.last_used FROM device AS d JOIN user AS u ON d.user_id=u.id WHERE u.token=?', $token );
 		
 		echo json_encode($devices);
 	}

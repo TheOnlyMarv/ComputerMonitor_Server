@@ -16,7 +16,7 @@
 		$token = $user[0]["token"];
 		if( empty($token) ){
 			$token = md5(microtime());
-			DB::query( 'UPDATE user SET token=? WHERE id=?', $token, $user[0]["id"] );
+			DB::query( 'UPDATE user SET token=?, last_used=? WHERE id=?', $token, date("Y-m-d H:i:s"),$user[0]["id"] );
 			$token = DB::query( 'SELECT token FROM user WHERE token=?', $token)[0]["token"];
 		}
 		
@@ -25,6 +25,7 @@
 			$returnvalue['message'] = "something went wrong";
 		}
 		else{
+			DB::query( 'UPDATE user SET last_used=? WHERE id=?', date("Y-m-d H:i:s"),$user[0]["id"] );
 			$returnvalue['status'] = true;
 			$returnvalue['message'] = "login successful";
 			$returnvalue['token'] = $token;

@@ -16,6 +16,7 @@
 	}
 	else{
 		$deviceinformation = DB::query("INSERT INTO usage_data(device_id, upload, download, date) VALUES(?, ?, ?, ?)", $deviceid, $upload, $download, $date);
+		DB::query( 'UPDATE device SET last_used=? WHERE id=?',date("Y-m-d H:i:s"), $deviceid );
 		$returnvalue['status'] = true;
 		$returnvalue['message'] = "usage data created";
 		echo json_encode($returnvalue);
