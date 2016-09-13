@@ -12,7 +12,7 @@
 		echo json_encode($returnvalue);
 	}
 	else{
-		$usage = DB::query( 'SELECT us.upload, us.download, us.date FROM usage_data AS us JOIN device AS d ON d.id=us.device_id JOIN user AS u ON u.id=d.user_id WHERE d.id=? AND u.token=?', $deviceid, $token );
+		$usage = DB::query( 'SELECT us.device_id us.upload, us.download, us.date FROM usage_data AS us JOIN device AS d ON d.id=us.device_id JOIN user AS u ON u.id=d.user_id WHERE d.id=? AND u.token=?', $deviceid, $token );
 		echo json_encode($usage);
 	}
 	
